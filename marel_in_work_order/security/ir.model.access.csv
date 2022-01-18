@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jenis_rijek_kaoskaki_all,jenis.rijek.kaoskaki,model_jenis_rijek_kaoskaki,base.group_user,1,1,1,1
+access_operator_rijek_kaoskaki_all,operator.rijek.kaoskaki,model_operator_rijek_kaoskaki,base.group_user,1,1,1,1
+access_marel_nama_operator_all,marel.nama.operator,model_marel_nama_operator,base.group_user,1,1,1,1
+access_marel_nama_operatorlist_all,marel.nama.operatorlist,model_marel_nama_operatorlist,base.group_user,1,1,1,1
+access_marel_nama_qiusi_all,marel.nama.qiusi,model_marel_nama_qiusi,base.group_user,1,1,1,1

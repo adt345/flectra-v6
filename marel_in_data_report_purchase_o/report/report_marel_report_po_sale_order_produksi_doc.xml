@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <!-- template report -->
+    <template id="report_mrpbomorder_new">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                <!-- <table class="table">
+                        <tr>
+                            <td>Kode Dokumen</td>
+                            <td>Halaman</td>
+                            <td>No Revisi</td>
+                            <td>Tgl Revisi</td>
+                            <td>Tgl Efektif</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <t t-esc="kode_dokumen_bom"/>
+                            </td>
+                            <td>
+                                <t t-esc="halaman_bom"/>
+                            </td>
+                            <td>
+                                <t t-esc="no_revisi_bom"/>
+                            </td>
+                            <td>
+                                <t t-esc="tgl_revisi_bom"/>
+                            </td>
+                            <td>
+                                <t t-esc="tgl_efektif_bom"/>
+                            </td>
+                        </tr>
+                    </table> -->
+                    <table class="table table-condensed">
+                        <tr>
+                            <th colspan="12" class="text-center">
+                                <span>
+                                    <h2>TOTAL BAHAN BAKU</h2>
+                                </span>
+                                <br/>
+                                <br/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>Sumber Data</td>
+                            <td>:</td>
+                            <td>
+                                <t t-esc="mo"/>
+                                <br/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <div>
+                        <span>
+                            <h3>BILL OF MATERIALS :</h3>
+                        </span>
+                    </div>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Product to Consume</th>
+                                <th>Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data" t-as="product">
+                                <tr>
+                                    <td>
+                                        <t t-esc="product['name']"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="product['qty']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <table align="center">
+                    <tr style="height:100px">
+                        <td width="450px">Mengajukan :</td>
+                        <td width="450px">Mengetahui :</td>
+                        <td>Mengetahui :</td>
+                    </tr>
+                    <tr style="height:30px">
+                        <td width="450px">Bagian PPIC</td>
+                        <td width="450px">Bagian Purchassing</td>
+                        <td>Bagian Gudang</td>
+                    </tr>
+                </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</flectra>

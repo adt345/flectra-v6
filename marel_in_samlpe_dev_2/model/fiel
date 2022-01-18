@@ -1,0 +1,80 @@
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+    
+    kode_dokumen = fields.Char(string=u'Kode Doc', store=True)
+    gambar_sample = fields.Binary(string='Gambar Sample', store=True)
+
+    penjerat_2 = fields.Many2one('product.product',string=u'Penjerat 2', store=True)
+
+    size = fields.Float(string='Size', store=True)
+    waktu = fields.Float(string='Waktu Steam', store=True)
+    waktu_anti_slip = fields.Float(string='Waktu Anti Slip', store=True)
+    keterangan_anti_slip = fields.Text(string='keterangan AS', store=True)
+
+    warna = fields.Char(string=u'Warna', store=True)
+    keterangan = fields.Text(string='keterangan', store=True)
+    
+    brand = fields.Char(string=u'Brand', store=True)
+    model_sample = fields.Char(string=u'Model', store=True)
+    tipe = fields.Char(string=u'Type', store=True)
+
+    gum_relaxed_x= fields.Float(string='Gum Relaxed x ', store=True)
+    gum_relaxed_y= fields.Float(string='Gum Relaxed y ', store=True)
+
+    leg_gum_relaxed_x= fields.Float(string='Leg Gum Relaxed x ', store=True)
+    leg_gum_relaxed_y= fields.Float(string='Leg Gum Relaxed y ', store=True)
+
+    leg_gum_atas_relaxed_x= fields.Float(string='Leg Gum Atas Relaxed x ', store=True)
+    leg_gum_atas_relaxed_y= fields.Float(string='Leg Gum Atas Relaxed y ', store=True)
+
+    leg_gum_bawah_relaxed_x= fields.Float(string='Leg Gum Bawah Relaxed x ', store=True)
+    leg_gum_bawah_relaxed_y= fields.Float(string='Leg Gum Bawah Relaxed y ', store=True)
+
+    leg_relaxed_x= fields.Float(string=' Leg Relaxed x', store=True)
+    leg_relaxed_y= fields.Float(string='Leg Relaxed y ', store=True)
+
+    foot_relaxed_x= fields.Float(string=' Foot Relaxed x', store=True)
+    foot_relaxed_y= fields.Float(string=' Foot Relaxed y', store=True)
+
+    foot_gum_relaxed_x= fields.Float(string='Foot Gum Relaxed x ', store=True)
+    foot_gum_relaxed_y= fields.Float(string='Foot Gum Relaxed y ', store=True)
+
+    hell_relaxed_x= fields.Float(string='Heel Relaxed x ', store=True)
+    hell_relaxed_y= fields.Float(string='Heel Relaxed y ', store=True)
+
+    gum_atas_relaxed_x = fields.Float(string='Gum Atas Relaxed X', store=True)
+    gum_atas_relaxed_y = fields.Float(string='Gum Atas Relaxed Y', store=True)
+
+    gum_bawah_relaxed_x = fields.Float(string='Gum Bawah relaxed X', store=True)
+    gum_bawah_relaxed_y = fields.Float(string='Gum Bawah Relaxed Y' , store=True)
+
+    leg_gum_tengah_relaxed_x = fields.Float(string='Leg Gum Tengah Relaxed X', store=True)
+    leg_gum_tengah_relaxed_y = fields.Float(string='Leg Gum Tengah Relaxed Y', store=True)
+    
+    
+    # style = fields.Char(string=u'Style', store=True)
+    artikel = fields.Char(string=u'Artikel', store=True)
+    body = fields.Many2one('product.product',string=u'Body', store=True)
+    wording_munich = fields.Many2one('product.product',string=u'Wording', store=True)
+    logo = fields.Many2one('product.product',string=u'Logo', store=True)
+    hell = fields.Many2one('product.product',string=u'Heel', store=True)
+    toe = fields.Many2one('product.product',string=u'Toe', store=True)
+    transfer = fields.Many2one('product.product',string=u'Transfer', store=True)
+    lintoe = fields.Many2one('product.product',string=u'Lintoe', store=True)
+    penjerat = fields.Many2one('product.product',string=u'Penjerat', store=True)
+    karet = fields.Many2one('product.product',string=u'Karet', store=True)
+    patter_1 = fields.Many2one('product.product',string=u'Pattern 1', store=True)
+    patter_2 = fields.Many2one('product.product',string=u'Pattern 2', store=True)
+    patter_3 = fields.Many2one('product.product',string=u'Pattern 3', store=True)
+    patter_4 = fields.Many2one('product.product',string=u'Pattern 4', store=True)
+    patter_5 = fields.Many2one('product.product',string=u'Pattern 5', store=True)
+    patter_6 = fields.Many2one('product.product',string=u'Pattern 6', store=True)
+    patter_7 = fields.Many2one('product.product',string=u'Pattern 7', store=True)
+    patter_8 = fields.Many2one('product.product',string=u'Pattern 8', store=True)
+    patter_9 = fields.Many2one('product.product',string=u'Pattern 9', store=True)
+    patter_10 = fields.Many2one('product.product',string=u'Pattern 10', store=True)
+    jumlah_pasang = fields.Integer(string='Jumlah Pasang', store=True)
+
+    #untuk BOM Benang
+    needle = fields.Char(string=u'Needle', store=True)
+    nama_sample = fields.Char(string=u'Nama Sample', store=True)

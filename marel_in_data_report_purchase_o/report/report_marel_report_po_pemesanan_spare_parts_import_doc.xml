@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+	<template id="report_marel_report_po_pemesanan_spare_parts_import_doc">
+		<t t-call="web.external_layout">
+			<t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+			<t t-set="address">
+				<div t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}" t-options-fields="['address', 'name', 'phone', 'mobile', 'email', 'vat']"/>
+				<p t-if="o.partner_id.vat">
+					<t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>:					<span t-field="o.partner_id.vat"/>
+				</p>
+			</t>
+			<t t-if="o.dest_address_id">
+				<t t-set="information_block">
+					<strong>Shipping address:</strong>
+					<div t-if="o.dest_address_id">
+						<div t-field="o.dest_address_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}" name="purchase_shipping_address"/>
+					</div>
+
+				</t>
+			</t>
+			<t t-else="">
+				<t t-set="information_block">
+					<strong>Shipping address:</strong>
+					<div t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+						<span t-field="o.picking_type_id.warehouse_id.name"/>
+						<div t-field="o.picking_type_id.warehouse_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}" t-options-fields="['address', 'phone', 'mobile']" t-options-separator="False" t-options-no_marker="False" t-options-widget="&quot;contact&quot;"/>
+					</div>
+				</t>
+			</t>
+
+			<div class="page">
+				<div class="oe_structure"/>
+				<div class="row">
+					<div class="col">
+						<span></span>
+					</div>
+				</div>
+
+
+				<h2 t-if="o.state == 'draft'" style="margin-top:20px">Request for Quotation #<span t-field="o.name"/>
+				</h2>
+				<h2 t-if="o.state in ['sent', 'to approve']">Purchase Order #<span t-field="o.name"/>
+				</h2>
+				<h2 t-if="o.state in ['purchase', 'done']" style="width:400px">Purchase Order #<span t-field="o.name"/>
+				</h2>
+				<div class="row">
+					<div class="col-3">
+						<span>
+							<b>Order Date:</b>
+							<span t-field="o.date_order" style="display:inline-block;width:100px;width:200px"/>
+
+						</span>
+					</div>
+					<div class="col-3"/>
+					<div class="col-3" style="margin-left:100px">
+						<span>
+							<span>
+								<b>
+									<font class="bg-o-color-2">
+										<font style="color: rgb(255, 191, 0);">
+										</font>
+									</font>
+								</b>
+							</span>
+							<span>
+								<p>
+									<b>Purchase Representative</b>:									<br/>
+									<span t-field="o.create_uid.name"/>
+									<br/>
+									<span t-field="o.create_uid.phone"/>
+									<span t-field="o.create_uid.email" style="width:200px;display:inline-block"/>
+
+								</p>
+								<p>
+
+									<br/>
+								</p>
+							</span>
+						</span>
+					</div>
+				</div>
+
+				<h2 t-if="o.state == 'cancel'">Cancelled Purchase Order #<span t-field="o.name"/>
+				</h2>
+
+				<div id="informations" class="row mt32 mb32">
+					<div t-if="o.partner_ref" class="col-3 bm-2">
+						<strong>Your Order Reference:</strong>
+						<p t-field="o.partner_ref" class="m-0"/>
+					</div>
+					<div t-if="o.date_order" class="col-3 bm-2">
+					</div>
+					<div t-if="o.incoterm_id" class="col-3 bm-2">
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="offset-0 col-0">
+						<span>
+							<br/>
+						</span>
+					</div>
+					<div class="col-3"/>
+					<div class="col-3"/>
+					<div class="col-3"/>
+				</div>
+				<div class="row">
+					<div class="col-8">
+						<span>
+							<strong>
+								<font style="font-size: 18px;">
+									<i>Project :</i>
+								</font>
+							</strong>
+							<br/>
+						</span>
+						<span t-field="o.x_studio_many2one_field_AI7kX.name" class="o_bold h1"/>
+					</div>
+					<div class="col-3"/>
+					<div class="col-3"/>
+					<div class="col-3"/>
+				</div>
+
+
+
+				<table class="table table-sm o_main_table">
+					<thead>
+						<tr>
+
+
+							<th>
+								<span>image</span>
+							</th>
+							<th t-if="o.sh_print_line_no">##</th>
+
+							<th name="th_description">
+								<strong>Description</strong>
+							</th>
+							<th>
+								<span>
+									<p>Product Category<br/>
+									</p>
+								</span>
+							</th>
+							<th>
+								<span>Total Quantity</span>
+							</th>
+
+							<t t-if="o.sh_show_multi_disc == True">
+								<th class="text-left">Price Unit</th>
+								<th>
+									<span>Tax (%)</span>
+								</th>
+
+								<th class="text-right">Disc.(%)</th>
+								<th class="text-right">Disc. Unit Price</th>
+							</t>
+
+							<th name="th_amount" class="text-right">
+								<strong>Total Amount</strong>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<t t-set="current_subtotal" t-value="0"/>
+						<t t-foreach="o.order_line" t-as="line">
+							<t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+							<t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+							<tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+								<t t-if="not line.display_type">
+
+
+									<td t-if="o.sh_print_line_no" class="text-left">
+										<span t-field="line.pol_number"/>
+									</td>
+
+									<td t-if="o.sh_print_product_img" class="text-left">
+										<img t-if="line.sh_product_img and o.sh_image_size == 'small'" t-att-src="'data:image/png;base64,%s' % to_text(line.sh_product_img)" style="width: 64px; height: auto;"/>
+										<img t-if="line.sh_product_img and o.sh_image_size == 'medium'" t-att-src="'data:image/png;base64,%s' % to_text(line.sh_product_img)" style="width: 128px; height: auto;"/>
+										<img t-if="line.sh_product_img and o.sh_image_size == 'large'" t-att-src="'data:image/png;base64,%s' % to_text(line.sh_product_img)" style="width: 192px; height: auto;"/>
+									</td>
+									<td id="product">
+										<span t-field="line.name"/>
+										<span>(</span>
+										<span t-field="line.product_id.x_studio_lebar_mm"/>
+										<span>x</span>
+										<span t-field="line.product_id.x_studio_tinggi_mm"/>
+										<span>x</span>
+										<span t-field="line.product_id.x_studio_dalam_mm"/>
+										<span>)</span>
+										<span>mm</span>
+									</td>
+									<td>
+										<span t-field="line.product_id.categ_id.name"/>
+									</td>
+
+									<td>
+										<span t-field="line.product_uom_qty"/>
+										<span t-field="line.product_uom.name"/>
+
+									</td>
+
+									<t t-if="o.sh_show_multi_disc == True">
+										<td class="text-right">
+											<span t-field="line.price_unit" t-options-widget="&quot;integer&quot;"/>
+										</td>
+										<td>
+											<span t-field="line.taxes_id.amount" t-options-widget="&quot;&quot;"/>
+										</td>
+
+										<td class="text-right">
+											<span t-field="line.discount"/>
+										</td>
+										<td class="text-right">
+											<span t-field="line.sh_discount_price_unit"/>
+										</td>
+									</t>
+
+									<td class="text-right">
+										<span t-field="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" class="o_bold"/>
+									</td>
+								</t>
+								<t t-if="line.display_type == 'line_section'">
+									<td colspan="99" id="section">
+										<span t-field="line.name"/>
+									</td>
+									<t t-set="current_section" t-value="line"/>
+									<t t-set="current_subtotal" t-value="0"/>
+								</t>
+								<t t-if="line.display_type == 'line_note'">
+									<td colspan="99" id="note">
+										<span t-field="line.name"/>
+									</td>
+								</t>
+							</tr>
+							<t t-if="current_section and (line_last or o.order_line[line_index+1].display_type == 'line_section')">
+								<tr class="is-subtotal text-right">
+									<td colspan="103" id="subtotal">
+										<strong class="mr16">Subtotal</strong>
+										<span t-esc="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+									</td>
+								</tr>
+							</t>
+						</t>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col-5"/>
+					<div class="col-5 offset-2">
+					</div>
+				</div>
+				<div class="row">
+				</div>
+
+
+
+				<div id="total" class="row justify-content-end">
+					<div class="col-4">
+						<table class="table table-sm">
+							<tr class="border-black">
+								<td name="td_subtotal_label">
+									<strong>Subtotal</strong>
+								</td>
+								<td class="text-right">
+									<span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Total Diskon</td>
+								<td class="text-right">
+									<span t-field="o.total_diskon" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+								</td>
+							</tr>
+							<tr>
+								<td name="td_taxes_label">Taxes</td>
+								<td class="text-right">
+									<span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+								</td>
+							</tr>
+							<tr class="border-black o_total">
+								<td name="td_amount_total_label">
+									<strong>Total</strong>
+								</td>
+								<td class="text-right">
+									<span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<!--<div id="total" class="row justify-content-end">-->
+				<!--        <div class="col-4">-->
+				<!--            <table class="table table-sm">-->
+				<!--                <tr class="border-black">-->
+				<!--                    <td name="td_subtotal_label">-->
+				<!--                        <strong>Total Price</strong>-->
+				<!--                    </td>-->
+				<!--                    <td class="text-right">-->
+				<!--                        <span t-field="o.total_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+				<!--                    </td>-->
+				<!--                </tr>-->
+				<!--                <tr>-->
+				<!--                    <td>Total discount</td>-->
+				<!--                    <td class="text-right">-->
+				<!--                        <span t-field="o.total_diskon" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+				<!--                    </td>-->
+				<!--                </tr>-->
+				<!--                <tr>-->
+				<!--                    <td>Subtotal</td>-->
+				<!--                    <td class="text-right">-->
+				<!--                        <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+				<!--                    </td>-->
+				<!--                </tr>-->
+				<!--                <tr>-->
+				<!--                    <td>Taxes</td>-->
+				<!--                    <td class="text-right">-->
+				<!--                        <span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+				<!--                    </td>-->
+				<!--                </tr>-->
+				<!--                <tr class="border-black o_total">-->
+				<!--                    <td name="td_amount_total_label">-->
+				<!--                        <strong>Total</strong>-->
+				<!--                    </td>-->
+				<!--                    <td class="text-right">-->
+				<!--                        <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+				<!--                    </td>-->
+				<!--                </tr>-->
+				<!--            </table>-->
+				<!--        </div>-->
+				<!--    </div>-->
+				<p t-field="o.notes"/>
+				<div class="oe_structure"/>
+				<div class="row">
+				</div>
+				<div class="row">
+				</div>
+
+				<div class="row">
+					<div class="col-3">
+						<span>
+							<br/>
+						</span>
+					</div>
+					<div class="col-3"/>
+					<div class="col-3"/>
+					<div class="col-3"/>
+				</div>
+				<div class="row">
+					<div class="col-3"/>
+					<div class="col-3"/>
+				</div>
+				<div class="row">
+					<div class="col-5 offset-2"/>
+				</div>
+
+
+
+
+				<div class="row">
+				</div>
+				<table class="table o_report_block_table">
+					<thead>
+						<tr>
+							<th>
+								<span style="width:200px;display:inline-block">Notes   </span>
+							</th>
+							<th>
+								<span>REMARKS</span>
+							</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr t-foreach="docs" t-as="table_line">
+							<td style="width:200px;width:250px;width:400px">
+
+
+								<span>
+
+									<span>
+										<p t-if="table_line.partner_id.bank_ids">Bank Name:
+		
+											<span t-field="table_line.partner_id.bank_ids.bank_id.display_name" style="margin-left:45px"/>
+											<br/>
+											<span>Account Name:      </span>
+											<span t-field="table_line.partner_id.bank_ids.acc_holder_name"/>
+											<br/>
+											<span>Account Number:  </span>
+											<span t-field="table_line.partner_id.bank_ids.acc_number"/>
+										</p>
+									</span>
+								</span>
+								<span>
+									<p>
+										<b>Payment Terms:</b>
+										<span t-field="table_line.payment_term_id.name"/>
+										<br/>
+										<span>Incoterms: </span>
+										<span t-field="table_line.incoterm_id.code"/>
+										<br/>
+									</p>
+								</span>
+							</td>
+							<td>
+								<span t-field="table_line.order_report_id"/>
+
+								<span>
+									<p>* Nomor PO harus muncul pada surat jalan, Bukti Terima Barang dan Invoice.<br/>
+									</p>
+								</span>
+								<span>
+									<p>* Untuk kepentingan administrasi, mohon kirimkan kembali PO paling lambat sehari setelah PO diterima dan ditandatangani vendor.<br/>
+									</p>
+								</span>
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="row">
+				</div>
+				<div class="row">
+				</div>
+
+				<table class="table o_report_block_table text-center small">
+					<thead>
+						<tr>
+
+							<th>
+								<span>
+									<p>          ordered by:           </p>
+									<p>
+										<br/>
+									</p>
+									<p>
+										<br/>
+									</p>
+									<p>
+										<br/>
+									</p>
+									<p>Purchase</p>
+								</span>
+							</th>
+							<th>
+								<span>
+									<p class="text-center">approved by:</p>
+									<p class="text-center">
+										<br/>
+									</p>
+									<p class="text-center">
+										<br/>
+									</p>
+									<p>
+										<br/>
+									</p>
+									<p>Operational M.                    Finance M.                         Adm. Dtor.                         Ctrl. Audit</p>
+								</span>
+							</th>
+							<th>
+								<span>
+									<p>                    confirmed by:          <br/>
+									</p>
+								</span>
+								<span>
+									<p>
+										<br/>
+									</p>
+									<p>
+										<br/>
+									</p>
+									<p>
+										<br/>
+									</p>
+									<p>Supplier</p>
+								</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr t-foreach="docs" t-as="table_line">
+
+						</tr>
+					</tbody>
+				</table>
+
+
+
+
+
+				<t t-if="o.order_report_id" groups="sh_all_in_one_purchase_tools.sh_group_enable_report_section_purchase_tool">
+					<t t-foreach="o.order_report_id" t-as="temp">
+						<t t-if="temp.new_page">
+							<p style="page-break-after: always;"/>
+						</t>
+						<t t-set="b_styler" t-value="' '"/>
+						<t t-if="temp.border_main">
+							<t t-set="b_styler" t-value="str(temp.border_size) + 'px ' + temp.border_style + ' ' + temp.border_color "/>
+						</t>
+						<!-- End Border -->
+						<div class="page" t-att-style="&quot;border:%s;&quot;%(b_styler)">
+							<div class="container">
+								<div class="row">
+									<div class="col-12">
+										<p t-esc="temp.name" style="text-align: center; font-size: 26px; font-weight: bold;"/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+										<t t-if="temp.section_line">
+											<t t-foreach="temp.section_line" t-as="sline">
+												<t t-set="int_style" t-value="' '"/>
+												<t t-if="sline.check_ids">
+													<t t-foreach="sline.check_ids" t-as="st">
+														<t t-if="st.name == 'Bold'">
+															<t t-set="int_style" t-value="int_style + 'font-weight:bold;' "/>
+														</t>
+														<t t-if="st.name == 'Italic'">
+															<t t-set="int_style" t-value="int_style + 'font-style:italic;' "/>
+														</t>
+														<t t-if="st.name == 'Underline'">
+															<t t-set="int_style" t-value="int_style + 'text-decoration: underline;' "/>
+														</t>
+													</t>
+												</t>
+												<t t-set="b_style" t-value="' '"/>
+												<t t-if="sline.borders">
+													<t t-set="b_style" t-value="str(sline.border_size) + 'px ' + sline.border_style + ' ' + sline.border_color "/>
+												</t>
+												<div t-att-style="&quot;border-top:%s;&quot;%(b_style)+&quot;border-bottom:%s;&quot;%(b_style) + &quot;padding:3px;background-color:%s;&quot;%(sline.color) + &quot;font-size:%spx;&quot; %(sline.text_size) + int_style" t-field="sline.name"/>
+												<div t-if="sline.type == 'text'" t-field="sline.content_text" style="padding: 20px;"/>
+												<div class="col-12" t-if="sline.type == 'html'" t-field="sline.content_html" style="padding-left: 2 0px; padding-top: 20px;"/>
+											</t>
+										</t>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+				</t>
+			</div>
+		</t>
+	</template>
+</flectra>

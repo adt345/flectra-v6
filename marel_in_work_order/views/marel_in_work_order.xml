@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data noupdate="0">
+        <record id="view_marel_in_work_order_form_2" model="ir.ui.view">
+            <field name="name">marel_in_work_order_form_2</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/field[@name='active_move_line_ids']" position="before">
+                    <field name="nama_operator_line" mode="tree">
+                        <!-- <tree string="Data Perbagian" editable="bottom"> -->
+                        <tree string="Data Perbagian">
+                            <!--  TABAHAN TGL 6/5/20 -->
+                            <field name="status" readonly="1"/>
+                            <field name="tgl_kerja" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')]}"/>
+                            <field name="no_kkp" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')]}" required="1"/>
+                            <field name="nama_operator_id" options="{'no_create': True}" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')],}" required="1"/>
+                            <!-- <field name="nama_operator_id_1" options="{'no_create': True}" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')],}" required="1"/> -->
+                            <field name="nama_qiusi_id" options="{'no_create': True}" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')]}" required="1"/>
+                            <!-- <field name="nama_qiusi_id_1" options="{'no_create': True}" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')]}" required="1"/> -->
+                            <field name="no_mesin_id" options="{'no_create': True}" attrs="{'column_invisible':[('parent.workcenter_id', 'in', [8])]}" required="1"/>
+                            <field name="shift" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')]}" required="1"/>
+                            <field name="no_box" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', [8])], 'readonly': ['|', ('status', '=', 'done','cancel')]}"/>
+                            <field name="jumlah_yg_selesai_sementara" attrs="{'readonly': ['|', ('status', '=', 'done','cancel')]}"/>
+                            <field name="jumlah_yg_selesai" readonly="1"/>
+                            <field name="workcenter_id" readonly="1"/>
+                            <field name="krono_kk_menit" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 1)]}"/>
+                            <field name="jumlah_reject" readonly="1"/>
+                            <field name="target_kk_operator" readonly="1" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 1)]}"/>
+                            <field name="target_conti" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 2)]}" readonly="1"/>
+                            <field name="target_as" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 5)]}" readonly="1"/>
+                            <field name="target_sewing" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 4)]}" readonly="1"/>
+                            <field name="target_bordir" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 7)]}" readonly="1"/>
+                            <field name="target_setting" attrs="{'column_invisible':[('parent.workcenter_id', 'not in', 6)]}" readonly="1"/>
+                        </tree>
+                    </field>
+                    <br/>
+                    <field name="jumlah_reject_wo" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- replace fields supaya di workorder gak bisa di edit-->
+        <record id="mrp_production_workcenter_form_view_inherit" model="ir.ui.view">
+            <field name="name">marel_in_work_order_form_1</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="target_conti" string="Target Conti" attrs="{'invisible':[('workcenter_id', 'not in', 2)]}"/>
+                    <field name="target_as" string="Target Anti Slip" attrs="{'invisible':[('workcenter_id', 'not in', 5)]}"/>
+                    <field name="target_sewing" string="Target Sewing" attrs="{'invisible':[('workcenter_id', 'not in', 4)]}"/>
+                    <field name="target_bordir" string="Target Bordir" attrs="{'invisible':[('workcenter_id', 'not in', 7)]}"/>
+                    <field name="target_setting" string="Target Setting" attrs="{'invisible':[('workcenter_id', 'not in', 6)]}"/>
+                    <field name="boolean_pcs" string="Pair" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_marel_in_work_order_form_replace_button_done" model="ir.ui.view">
+            <field name="name">view_marel_in_work_order_form_replace_button_done</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='record_production']" position="replace">
+                    <button name="record_production_2" type="object" string="Done" class="btn-success" attrs="{'invisible': ['|', '|', '|', ('is_produced', '=', True), ('working_state', '=', 'blocked'), ('state', '!=', 'progress'), ('is_user_working', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</flectra>

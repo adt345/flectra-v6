@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flectra>
+    <data noupdate="0">
+        <template id="marel_in_sample_marketing_doc">
+            <!--<t t-foreach="os" t-as="o"> jika membuat sendiri harus didefinisikan bukan o dan tidak 
+                menggunakan t-forech karena tidak looping data namun jika mau luping data maka bisa menggunakan loopin data
+            -->
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size:12px;">
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th>Form</th>
+                                <th>Marketing</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Tanggal</th>
+                                <th t-if="o.standar">Standar/Acuan</th>
+                                <th t-if="o.standar">Jumlah Sample</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span t-field="o.form"/>
+                                </td>
+                                <td>
+                                    <p t-field="o.user_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.brand"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.model_sample"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.tanggal"/>
+                                </td>
+                                <td t-if="o.standar">
+                                    <span t-field="o.standar"/>
+                                </td>
+                                <td t-if="o.jumlah_sample">
+                                    <span t-field="o.jumlah_sample"/>
+                                    <span t-field="o.satuan"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div class="col-xs-6 pull-left">
+                            <table class="table table-condensed table-striped">
+                                <tr>
+                                    <th t-if="o.komposisi_material">Komposisi</th>
+                                    <td t-if="o.komposisi_material">
+                                        <span t-field="o.komposisi_material"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-xs-6 pull-right">
+                            <table class="table table-condensed table-striped" border='1'>
+                                <thead border='1'>
+                                    <tr>
+                                        <th rowspan='2' class="text-center">Konstruksi</th>
+                                        <th colspan="2" class="text-center">Stretcth (cm)</th>
+                                        <th colspan="3" class="text-center">Relaxed (cm)</th>
+                                    </tr>
+                                    <tr>
+                                        <!-- <th>gdfgdfhdh</th> -->
+                                        <th class="text-center">X</th>
+                                        <th class="text-center">Y</th>
+                                        <th class="text-center">X</th>
+                                        <th class="text-center">Y</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-if="o.gum_relaxed_x">
+                                        <th>Gum</th>
+                                        <td class="text-center">
+                                            <span t-field="o.gum_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.gum_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.gum_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.gum_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.leg_gum_relaxed_x">
+                                        <th>Leg Gum</th>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.leg_gum_atas_relaxed_x">
+                                        <th>Leg Gum Atas</th>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_atas_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_atas_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_atas_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_atas_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.leg_gum_bawah_relaxed_x">
+                                        <th>Leg Gum Bawah</th>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_bawah_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_bawah_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_bawah_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_gum_bawah_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.leg_relaxed_x">
+                                        <th>Leg</th>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.leg_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.foot_relaxed_x">
+                                        <th>Foot</th>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.foot_gum_relaxed_x">
+                                        <th>Foot Gum</th>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_gum_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_gum_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_gum_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.foot_gum_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.hell_relaxed_x">
+                                        <th>Heel</th>
+                                        <td class="text-center">
+                                            <span t-field="o.hell_stretch_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.hell_stretch_y"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.hell_relaxed_x"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="o.hell_relaxed_y"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th t-if="o.jarum">Jarum</th>
+                                <th t-if="o.netto_original_sample">Netto Original Sample</th>
+                                <th t-if="o.target_gramasi_bruto_sample">Target Gramasi Bruto Sample</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td t-if="o.jarum">
+                                    <span t-field="o.jarum"/>
+                                </td>
+                                <td t-if="o.netto_original_sample">
+                                    <span t-field="o.netto_original_sample"/>
+                                </td>
+                                <td t-if="o.target_gramasi_bruto_sample">
+                                    <span t-field="o.target_gramasi_bruto_sample"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- 2 tabel -->
+                    <table class="table table-condensed table-striped">
+                        <tr t-if="o.mesin">
+                            <th>Mesin</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.mesin"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.jenis">
+                            <th>Jenis</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.jenis"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.rib_khusus_knit">
+                            <th>Rib Khusus Knit</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.rib_khusus_knit"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.rib_cuff">
+                            <th>Rib Cuff</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.rib_cuff"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.rib_leg_gum_atas">
+                            <th>Rib Reg Gum Atas</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.rib_leg_gum_atas"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.rib_leg_gum_bawah">
+                            <th>Rib Leg Gum Bawah</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.rib_leg_gum_bawah"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.rib_foot_gum">
+                            <th>Rib Foot Gum</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.rib_foot_gum"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.embroidery">
+                            <th>Embroidery</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.embroidery"/>
+                            </td>
+                            <th>Ukuran:</th>
+                            <td>
+                                <span t-field="o.ukuran_embroidery"/>
+                            </td>
+                            <th>Posisi:</th>
+                            <td>
+                                <span t-field="o.posisi_embroidery"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.anti_slip">
+                            <th>Anti Slip</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.anti_slip"/>
+                            </td>
+                            <th>Ukuran:</th>
+                            <td>
+                                <span t-field="o.ukuran_anti_slip"/>
+                            </td>
+                            <th>Posisi:</th>
+                            <td>
+                                <span t-field="o.posisi_anti_slip"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.jahit_no_show">
+                            <th>Jahit No Show</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.jahit_no_show"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.posisi_logo">
+                            <th>Posisi Logo</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.posisi_logo"/>
+                            </td>
+                            <th>Ukuran Logo :</th>
+                            <td>
+                                <span t-field="o.ukuran_logo"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.target_finish_sample">
+                            <th>Target Finish Sample</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.target_finish_sample"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.lokasi_folder_file_soft_copy">
+                            <th>Lokasi Folder File Soft Copy</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.lokasi_folder_file_soft_copy"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.material_packing">
+                            <th>Material Packing</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.material_packing"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr t-if="o.informasi_lainnya">
+                            <th>Informasi Lainnya</th>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.informasi_lainnya"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <img t-att-src="'/marel_in_sample_marketing/static/description/gambah_kk_sample_sales.jpg'" Style="width:250px;height:250px"/>
+                    <div t-if="o.gambar_sample_marketing" class="col-xs-2">
+                        <span t-field="o.gambar_sample_marketing" t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;,'style':'width:250px ;height: 250px'}"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <!-- template semua record-->
+    </data>
+</flectra>
